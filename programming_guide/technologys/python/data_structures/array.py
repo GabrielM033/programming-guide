@@ -1,67 +1,53 @@
-from collections import deque
-
-
 class StructuresArray:
 
-    # Lista: Se trata de uma estrutura de dados.
-    def __init__(self, data_structures) -> list:
-        """
-        Apresentação de uma estrutura de dados array,
-        assim representando uma lista.
+    def __init__(self, data_none, data_values):
+        self.data_none = data_none
+        self.data_values = data_values
 
-        Args:
-            data_structures (list): Estrutura de dados array.
-        """
+    # Coletando o primeiro index do array.
+    def get_array(self) -> str:
 
-        self.data_structures = data_structures
+        value_current = self.data_values
+        return_value = value_current[0]
 
-    # Fila: O primeiro index a ser inserido será o primeiro a sair (FIFO).
-    def fila(self):
-        """
-        Vamos executar um cenário de fila e retornar um array criado.
+        return f"O valor do index 0 é: {return_value}"
 
-        Returns:
-            _array_: Estrutura de dados array.
-        """
+    # Criando um array do zero.
+    def create_array(self) -> list:
 
-        array_fila = deque()
+        value_current = self.data_none
+        value_current.append("Python")
+        value_current.append("Java")
+        value_current.append("SQL")
 
-        array_fila.append("jatinho")
-        array_fila.append("triciclo")
+        return value_current
 
-        array_fila.popleft()
+    # Atualizando o index existente e inserindo um novo index no array.
+    def update_array(self) -> list:
 
-        return array_fila
+        value_current = self.data_values
+        value_current[1] = 22
+        value_current.append("Catolico")
 
-    # Pilha: O último index a ser inserido será o primeiro a sair.
-    def pilha(self):
-        """
-        Vamos executar um cenário de pilha e retornar um array.
+        return value_current
 
-        Returns:
-            _array_: Estrutura de dados array.
-        """
+    # Excluindo o último index e um index desejado.
+    def delete_array(self) -> str:
 
-        array_pilha = self.data_structures
+        value_current = self.data_values
+        value_current.pop()
+        value_current.remove("Gabriel")
 
-        array_pilha.append("navio")
-
-        array_pilha.pop()
-
-        return array_pilha
+        return f"Array após usar o pop e remove: {value_current}"
 
 
 if __name__ == "__main__":
-    """
-    Condicionamento que define a lista(array) no método construtor.
-    Posteriormente basta chama o método que deseja executar.
-    """
 
-    my_array = ["moto", "carro", "barco"]
+    data_none = []
+    data_values = ["Gabriel", 20, "Programador", "Brasileiro"]
 
-    structures_array = StructuresArray(my_array)
-    response_pilha = structures_array.pilha()
-    response_fila = structures_array.fila()
-
-    print(response_fila)
-    print(response_pilha)
+    structures_array = StructuresArray(data_none, data_values)
+    print(structures_array.get_array())
+    print(structures_array.create_array())
+    print(structures_array.update_array())
+    print(structures_array.delete_array())
