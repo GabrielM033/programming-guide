@@ -1,0 +1,7 @@
+# Dependências
+fastapi==0.136.3
+uvicorn==0.48.0
+
+# Dev
+pytest==9.0.3
+flake8==7.3.0
