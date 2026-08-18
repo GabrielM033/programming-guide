@@ -1,38 +1,41 @@
-
-class TypesSearchs:
+class TiposPesquisas:
 
     def __init__(self, list_order: list, number_search: int):
         self.list_order = list_order
         self.number_search = number_search
 
-    def search_binarios(self):
+    def pesquisa_binaria(self):
         """
-        Pesquisa binários se torna eficaz quando se trata
+        Pesquisa binária se torna eficaz quando se trata
         de uma lista ordenada e de grande tamanho, pois vamos partir
-        a lista ao meio e validar se o número desejado está acima ou abaixo,
-        e assim localizamos a pesquisa bem mais rápido que um for simples.
+        a lista pela metade até localizar o número desejado.
 
         Returns:
             str: Notificação que localizou o número e a quantidade de tentativas.
         """
 
-        start = 0
-        end = len(self.list_order) - 1
+        # len() começa contabilizando do 1, por isso é feito o "-1".
+        number_start = 0
+        number_end = len(self.list_order) - 1
 
-        while start <= end:
-            quite = (start + end) // 2
+        repetition = 0
 
-            if self.list_order[quite] == self.number_search:
-                return quite
+        while number_start <= number_end:
+            position_number_index = (number_start + number_end) // 2
 
-            elif self.number_search > self.list_order[quite]:
-                start = quite + 1
+            if self.list_order[position_number_index] == self.number_search:
+                repetition += 1
+                return f"Foi preciso {repetition} tentativas até localizar o número {self.number_search}."
+
+            elif self.number_search > self.list_order[position_number_index]:
+                repetition += 1
+                number_start = position_number_index + 1
 
             else:
-                end = quite - 1
-        return -1
+                repetition += 1
+                number_end = position_number_index - 1
 
-    def search_simple(self) -> str:
+    def pesquisa_simples(self) -> str:
         """
         Pesquisa simples é uma pesquisa mais "cara", pelo fato
         de passar item por item da lista, ou seja, se tiver 100
@@ -44,21 +47,20 @@ class TypesSearchs:
             str: Notificação que localizou o número e a quantidade de tentativas.
         """
 
-        data = self.list_order
-        value_search = 10
-        number_repetitions = 1
+        repetition = 0
 
-        for number_current in data:
+        for number_current in self.list_order:
 
-            if number_current == value_search:
-                return f"Localizei o número ({value_search}), precisei de {number_repetitions} tentativas!"
+            if number_current == self.number_search:
+                repetition += 1
+                return f"Foi preciso {repetition} tentativas até localizar o número {self.number_search}."
             else:
-                number_repetitions += 1
+                repetition += 1
 
 
 if __name__ == "__main__":
-    types_searchs = TypesSearchs([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150], 90)
-    # response = types_searchs.search_simple()
-    response = types_searchs.search_binarios()
-
-    print(response)
+    types_searchs = TiposPesquisas([10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150], 90)
+    response_pesquisa_simples = types_searchs.pesquisa_simples()
+    print(f"Pesquisa Simples: {response_pesquisa_simples}")
+    response_pesquisa_binaria = types_searchs.pesquisa_binaria()
+    print(f"Pesquisa Binária: {response_pesquisa_binaria}")
